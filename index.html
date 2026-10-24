@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#10283d" name="theme-color"/><title>The Trillion-Dollar Receipt | Federal Spending Explorer</title><style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;color:#f6f4ff;background:#100b24}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0%,#5d2180 0,transparent 37%),radial-gradient(ellipse at 5% 20%,#193a75 0,transparent 40%),#100b24;min-height:100vh}main{max-width:1100px;margin:auto;padding:25px 16px 90px}header{padding:35px 10px 25px}h1{font-size:clamp(44px,8vw,83px);line-height:.98;letter-spacing:-.065em;margin:20px 0;font-weight:950}h1 span{color:#ffcf57;text-shadow:0 4px 30px #e48c2a4d}h2{font-size:clamp(20px,3vw,27px);letter-spacing:-.035em;margin:0}.tag{display:inline-block;border:1px solid #ffcf5775;border-radius:30px;color:#ffdc7a;background:#ffcc3d18;padding:9px 14px;font-size:12px;font-weight:900;letter-spacing:.12em}.muted,.small,.note{color:#c7bddc}.muted{font-size:18px;line-height:1.5;max-width:700px}.small,.note{font-size:12px;line-height:1.5}.card{background:linear-gradient(140deg,#231b40ed,#1a1737f5);border:1px solid #75689b6b;border-radius:25px;padding:22px;margin:18px 0;box-shadow:0 18px 50px #07041550}.sectiontop{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;margin-bottom:20px}.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}label{display:block;font-size:13px;font-weight:800;color:#e6ddff;margin-bottom:8px}select,button,input{font:inherit}select{background:#17102e;color:#fff;border:1px solid #8774ba;border-radius:13px;padding:14px 10px;width:100%;font-size:16px}button{border:0;border-radius:13px;background:#ffcb4e;color:#241327;font-weight:900;padding:13px 18px;cursor:pointer;min-height:46px}button:active{transform:scale(.98)}button:disabled{opacity:.55}button.secondary{background:#a5f4dd}button.active{background:#ffcb4e;color:#20152b}.buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.metric{background:#100c26;border:1px solid #6d588e8a;border-radius:18px;padding:18px;min-width:0}.metric .label{color:#bdb1d5;font-size:12px;font-weight:800;letter-spacing:.045em;text-transform:uppercase}.metric .value{font-size:clamp(27px,5vw,46px);font-weight:950;letter-spacing:-.06em;color:#fff;margin:8px 0;overflow-wrap:anywhere}.metric:nth-child(1) .value{color:#ffcf57}.metric:nth-child(2) .value{color:#a5f4dd}.metric:nth-child(3) .value{color:#ff92a8}.metric:nth-child(4) .value{color:#9cbaff}.joke{background:#ffcf5717;border:1px dashed #ffcf5790;border-radius:15px;padding:15px;color:#ffdf8b;font-weight:700;margin-top:17px}.chartwrap{height:310px;width:100%;position:relative}canvas{width:100%;height:100%;display:block;touch-action:pan-y}.pill{display:inline-block;background:#372553;border-radius:30px;padding:9px 14px;color:#f6e7ff;font-size:13px;font-weight:700}.receiptrow{display:grid;grid-template-columns:1fr auto;gap:8px;padding:13px 0;border-bottom:1px solid #ffffff18;font-size:14px}.receiptrow strong{color:#ffcf57}.track{height:8px;background:#3b3156;border-radius:30px;grid-column:1/-1;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#fc7d9c,#ffcf57);border-radius:30px}.blocks{display:flex;gap:4px;flex-wrap:wrap}.block{width:19px;height:19px;border-radius:4px;background:linear-gradient(145deg,#fff0a0,#ef9f1b);box-shadow:inset -3px -3px #c77b1b}.wide{grid-column:1/-1}input[type=range]{width:100%;accent-color:#ffcf57;margin:20px 0}a{color:#a5f4dd}.footer{font-size:12px;color:#c4b8da;line-height:1.7;margin:30px 10px}.loading{color:#ffcf57}.kpi{display:flex;gap:12px;flex-wrap:wrap}.kpi>*{flex:1 1 170px}.chartnote{font-size:13px;color:#dfcafa;min-height:22px}.yearbadge{color:#a5f4dd;font-weight:900} @media(max-width:650px){.controls{grid-template-columns:1fr 1fr}.controls>div:last-child{grid-column:1/-1}.card{padding:17px;border-radius:20px}.metrics{gap:9px}.metric{padding:13px}.metric .value{font-size:clamp(23px,7vw,37px)}.chartwrap{height:275px}header{padding-top:22px}}
+
+/* Editorial redesign: restrained, crisp, and mobile friendly */
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17263b;background:#f2f6f8}
+body{background:linear-gradient(180deg,#e9f4f3 0,#f3f6fa 370px,#f5f7fa 100%);color:#17263b}
+main{max-width:1120px;padding:24px 16px 80px}
+header{background:#10283d;color:#fff;border-radius:24px;padding:34px 32px 38px;position:relative;overflow:hidden;margin:6px 0 22px;box-shadow:0 16px 34px #15304718}
+header:after{content:"";position:absolute;width:280px;height:280px;border:45px solid #1c9c9225;border-radius:50%;right:-100px;top:-130px;pointer-events:none}
+h1{font-size:clamp(38px,7vw,76px);letter-spacing:-.06em;line-height:1.04;margin:19px 0}
+h1 span{color:#76e0cc;text-shadow:none}
+.tag{background:#1c9c9220;border:1px solid #75d7c66b;color:#a6f5e4;letter-spacing:.11em;font-size:11px}
+header .muted{color:#c9d9e3;max-width:690px}
+.card{background:#fff;border:1px solid #dfe8ee;border-radius:19px;box-shadow:0 5px 22px #1c39500b;padding:24px;margin:16px 0}
+h2{color:#132d42;font-size:clamp(20px,3vw,26px);letter-spacing:-.035em}
+h3{color:#244158}
+.muted,.small,.note{color:#5c7081}
+label,.label{color:#425b6d}
+select{background:#f9fbfc;color:#183249;border:1px solid #cad8e2}
+button{background:#087f78;color:white;border:1px solid #087f78;box-shadow:none}
+button:hover{filter:brightness(.95)}
+button.secondary{background:#eff7f7;color:#096e69;border:1px solid #a9d7d3}
+button.secondary.active{background:#0e6865;color:white;border-color:#0e6865}
+.stat{background:#f5f9fa;border:1px solid #e3ebee;border-radius:14px}
+.value{color:#132e42}.value.gold,.gold{color:#a56a14}.value.green,.green{color:#0b8068}.value.red,.red{color:#b84c54}
+.headline{color:#476274;border-left:3px solid #18a59b;padding-left:13px;background:#f3faf9;border-radius:0 8px 8px 0}
+.divider{border-color:#e4ebf0}
+.receipt{background:#f8fafb;color:#1a3348;border:1px solid #e0e9ed}
+#chartTip{color:#36566b;background:#f1f7f8;border:1px solid #dbe8ea}
+.chartwrap{background:#fbfdfd;border-radius:12px;border:1px solid #e8eef0}
+.blocks>*,.blocks .block{background:#d6a253!important;border-color:#c38b31!important}
+.notice{background:#fff8e9;color:#755b2b;border-color:#eed9ad}
+a{color:#007c79}
+input[type=range]{accent-color:#078b81!important}
+footer{padding:10px 6px}
+@media(max-width:600px){header{padding:28px 20px;border-radius:18px}.card{padding:18px;border-radius:16px}h1{font-size:43px}}
+
+/* Refined finance newsroom design */
+:root{color:#eaf1fb;background:#091624}body{background:radial-gradient(circle at 85% 0%,#173d52 0%,transparent 34%),linear-gradient(180deg,#091624,#101d2d 48%,#091624)!important;color:#eaf1fb!important}h1{letter-spacing:-.055em!important}button{transition:transform .14s ease,filter .14s ease,background .14s ease}button:active{transform:scale(.97)}button:hover{filter:brightness(1.12)}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #56e0c0;outline-offset:2px}.card{border-color:#2b4861!important;box-shadow:0 10px 36px #0002!important}#status{white-space:pre-line;line-height:1.7!important}#chartTip{min-height:24px}#history{touch-action:pan-y} .feedstatus{font-size:12px;padding:8px 10px;margin:6px 0;border-radius:9px;background:#152d3f;color:#cce3f4}.feedstatus.good{border-left:3px solid #5ee1ba}.feedstatus.bad{border-left:3px solid #ff9e9e}.feedstatus.loading{border-left:3px solid #ffc96e} .tagline{font-size:13px;color:#b7cbdc;margin:8px 0 16px}
+.joke-panel{margin:12px 0 0;padding:16px 18px;border-radius:12px;border:1px solid #e5c16d;background:#1c2a39;color:#fff;font-size:17px;font-weight:650;line-height:1.5;min-height:70px}.joke-panel.pulse{animation:jokepulse .4s ease}@keyframes jokepulse{0%{background:#456b7d}100%{background:#1c2a39}}.debt-card{border-top:3px solid #e4b75d}.debt-value{font-size:clamp(38px,8vw,62px);font-weight:850;color:#f2c16b;letter-spacing:-.035em;margin:12px 0}.debt-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.debt-split>div{background:#162a3b;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}.debt-split span{font-size:12px;color:#a9c0d1}.debt-split strong{font-size:clamp(16px,4vw,24px)}.debt-track{height:11px;border-radius:8px;background:#527084;overflow:hidden}.debt-track>div{height:100%;width:0;background:#f2c16b;transition:width .5s}.chart-summary{padding:13px 15px;border-radius:10px;background:#192d40;color:#e1f1fb;font-size:14px;margin-top:12px;line-height:1.5}#history{touch-action:pan-y;cursor:crosshair}</style><style>
+.chart-extras{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 18px;align-items:center}.chart-extras label{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#b9d2e4}.chart-extras select{background:#16384c;color:#fff;border:1px solid #54738a;border-radius:9px;padding:9px;font-size:14px;min-width:110px}.joke-flash{animation:jokeFlash .4s ease}@keyframes jokeFlash{from{transform:translateY(5px);opacity:.4}to{transform:translateY(0);opacity:1}}#history{touch-action:pan-y;cursor:crosshair}
+</style></head><body><main><header><span class="tag"> FEDERAL FINANCES, WITHOUT THE SPIN</span><h1>The <span>Trillion-Dollar</span> Receipt </h1><p class="muted">A federal budget so large the calculator asked for hazard pay. Explore the actual numbers, then enjoy the jokes. Actual government numbers; jokes sold separately.</p></header>
+<section class="card"><div class="sectiontop"><h2> Explore the numbers</h2><span class="small">Official sources · FY2026 included</span></div><div class="controls"><div><label for="year">Fiscal year</label><select id="year"></select></div><div><label for="type">Award obligations</label><select id="type"><option value="all">All awards</option><option value="contracts">Contracts</option><option value="grants">Grants</option></select></div><div><label for="agency">Agency</label><select id="agency"><option value="">All agencies</option></select></div></div><div class="btnrow"><button id="load"> Refresh live numbers</button><button class="secondary" id="surprise">Tell me another budget joke</button></div><div aria-live="polite" class="joke-panel" id="jokePanel" role="status">The national budget has entered the chat. Your calculator has left.</div><p class="muted" id="status" role="status">Loading official numbers…</p><div id="feeds"><div class="feedstatus loading" id="feed-treasury">Treasury · budget history: waiting</div><div class="feedstatus loading" id="feed-gdp">World Bank · GDP: waiting</div><div class="feedstatus loading" id="feed-awards">USAspending · agency awards: waiting</div></div></section>
+<section class="card"><h2> Federal budget overview</h2><p class="small">Treasury fiscal-year receipts and outlays — different from the award obligations below.</p><div class="stats"><div class="stat"><div class="label">Government spent</div><div class="value gold" id="outlays">—</div><div class="small">Actual outlays</div></div><div class="stat"><div class="label">Government collected</div><div class="value green" id="receipts">—</div><div class="small">Federal receipts</div></div><div class="stat"><div class="label">Budget balance</div><div class="value red" id="balance">—</div><div class="small" id="balanceNote">Receipts − outlays</div></div><div class="stat"><div class="label">Spending per second</div><div class="value" id="persec">—</div><div class="small">FY average, not a live meter</div></div></div><p class="headline" id="budgetJoke">The receipt printer has filed for overtime.</p></section><section class="card debt-card"><div class="sectiontop"><h2>National debt</h2><span class="tag">Treasury · Debt to the Penny</span></div><p class="small">Total public debt outstanding: debt held by the public <em>plus</em> intragovernmental holdings. A stock of outstanding debt, not this year's deficit.</p><div class="debt-value" id="nationalDebt">—</div><div class="small" id="debtDate">Waiting for the latest Treasury reading…</div><div class="debt-split"><div><span>Held by the public</span><strong id="publicDebt">—</strong></div><div><span>Intragovernmental holdings</span><strong id="internalDebt">—</strong></div></div><div class="debt-track"><div id="debtPublicBar"></div></div><p class="small">The debt clock isn't broken. It just has a very ambitious career.</p></section>
+<section class="card"><div class="sectiontop"><h2> Spending over time</h2><div class="btnrow" style="margin:0"><button class="secondary active" id="modeBudget">Spending vs revenue</button><button class="secondary" id="modeBalance">Surplus / deficit</button></div></div><p class="small">Annual federal fiscal-year totals, in trillions of dollars. Tap a point to inspect it.</p><div class="chartwrap"><div class="chart-extras"><label for="chartRange">Years <select id="chartRange"><option value="all">All available</option><option value="10">Last 10</option><option value="5">Last 5</option></select></label><label for="chartStyle">View <select id="chartStyle"><option value="line">Trend lines</option><option value="bar">Bars</option></select></label></div><canvas aria-label="Historical federal outlays and receipts chart" id="history" role="img"></canvas></div><div class="chart-summary" id="chartSummary">Select a chart mode or tap the graph to inspect a fiscal year.</div><div aria-live="polite" id="chartTip">Select a point on the chart.</div></section>
+<section class="card"><h2> GDP in context</h2><div class="compare"><div><div class="label">U.S. GDP · calendar year <span id="gdpYear">—</span></div><div class="value" id="gdp">—</div><div class="small">Total value of goods and services produced in the economy.</div></div><div><div class="label">Federal outlays as % of GDP*</div><div class="value gold" id="gdpShare">—</div><div class="small">Scale comparison, not a profit/loss statement.</div></div></div><div class="divider"></div><p class="headline" id="gdpJoke">GDP isn't revenue the Treasury can deposit. The government's budget balance is receipts minus outlays.</p><p class="small">*GDP uses calendar-year World Bank data; federal outlays use Treasury fiscal years. Different periods, so this is an approximate scale comparison, not an official fiscal-year GDP ratio. GDP is not federal tax revenue.</p></section>
+<section class="card"><h2> Federal award obligations</h2><p class="small">USAspending award obligations, including selected contracts, grants and other awards. These are commitments, NOT total government outlays; don't add them to the Treasury figures.</p><div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><div class="label">Selected award obligations</div><div class="value gold" id="awards">—</div></div><div class="stat"><div class="label">Years at $1 million/day</div><div class="value" id="million">—</div></div></div><p class="headline" id="awardJoke">Imagine explaining this to your household budgeting app.</p><h3> Each tile represents $100 billion</h3><div aria-label="One block per 100 billion dollars" class="blocks" id="blocks"></div><p class="small" id="brickNote">Waiting for data.</p><div class="divider"></div><div class="sectiontop"><h2> Spending by agency</h2><span class="small" id="agencyCount"></span></div><div class="receipt" id="agencyList"><p class="small">Loading agencies…</p></div></section>
+<section class="card"><h2> Put the scale in perspective</h2><p class="small">Move the slider to see how long it would take to spend the selected award obligations at your chosen daily pace. This is arithmetic, not a policy recommendation.</p><label for="daily">Daily spending scenario: <strong id="dailyLabel">$1 million</strong></label><input id="daily" max="6" min="0" style="width:100%;accent-color:#ffc96e" type="range" value="3"/><div class="value gold" id="yearsToSpend">—</div><p class="headline" id="sliderJoke">Even your imaginary credit card is nervous.</p></section>
+<section class="card"><h2> Sources and methodology</h2><p class="small">Treasury's Monthly Treasury Statement provides actual federal receipts, outlays and the deficit. USAspending provides award obligations, which are a different measurement. World Bank GDP is an economy-wide measure. No comparison of GDP minus government spending is labeled a government “net gain” or “loss,” because that would be misleading. Recent years can be revised. An incomplete fiscal year is excluded from annual Treasury history.</p><p class="small sources">Sources: <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" rel="noopener" target="_blank">U.S. Treasury</a> · <a href="https://api.usaspending.gov/" rel="noopener" target="_blank">USAspending API</a> · <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=US" rel="noopener" target="_blank">World Bank GDP</a></p><div class="notice"> If a data provider is unavailable, this dashboard shows “unavailable” instead of making up a trillion dollars. Congress already has enough numbers to argue about.</div></section><footer class="small">Independent educational visualization. Not affiliated with the U.S. government. Humor targets the scale of the numbers, not the people receiving public services.</footer></main>
+<script>(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const fmt=n=>Number.isFinite(n)?'$'+(Math.abs(n)>=1e12?(n/1e12).toFixed(2)+'T':Math.abs(n)>=1e9?(n/1e9).toFixed(1)+'B':Math.abs(n)>=1e6?(n/1e6).toFixed(1)+'M':Math.round(n).toLocaleString()):'—';
+const state={treasury:[],gdp:{},awards:[],mode:'budget',request:0,errors:{},status:{},awardTotal:NaN,debt:null,selectedChartYear:null};
+const years=$('year');years.replaceChildren();for(let y=2026;y>=2015;y--)years.add(new Option('FY '+y,y));years.value='2026';
+const jokes=['The comma key has requested hazard pay.','Somewhere, a spreadsheet is quietly reconsidering its career.','These numbers have more zeros than a sold-out stadium has seats.','The receipt printer is requesting a federal grant for more paper.','A billion here, a billion there. Eventually someone checks the receipt.','The budget has a subscription plan. Nobody remembers signing up.','The decimal point has been placed in witness protection.','At this scale, the rounding error needs its own accountant.','We asked for a smaller budget. The printer switched to a smaller font.','The Treasury called. They need a longer spreadsheet.'];
+const joke=()=>jokes[Math.floor(Math.random()*jokes.length)];
+const errorText=e=>e.name==='AbortError'?'Request timed out':e.message||String(e);
+function feed(name,kind,msg){const el=$('feed-'+name);el.className='feedstatus '+kind;el.textContent=({treasury:'Treasury · budget history',gdp:'World Bank · GDP',awards:'USAspending · agency awards'})[name]+': '+msg;state.status[name]=kind;state.errors[name]=kind==='bad'?msg:'';const good=Object.values(state.status).filter(x=>x==='good').length;$('status').textContent=good+'/3 primary sources connected'+(good===3?' · All systems reporting.':' · Details below.');}
+async function getJSON(url,opts={}){const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),25000);try{const r=await fetch(url,{...opts,signal:ctrl.signal,cache:'no-store'});if(!r.ok){let msg='';try{msg=(await r.text()).slice(0,140).replace(/<[^>]*>/g,'')}catch{}throw Error('HTTP '+r.status+(msg?' · '+msg:''))}return await r.json()}finally{clearTimeout(timer)}}
+function number(x){if(x===null||x===undefined||x==='')return NaN;return Number(String(x).replace(/,/g,''))}
+function parseTreasury(data){
+ // Official MTS monthly summary: one Receipts, Outlays, and Deficit/Surplus row per month.
+ // mil_amt is MILLIONS of dollars. Never sum Table 1 overlapping publication rows.
+ const byMonth=new Map();
+ for(const r of data){
+  const date=String(r.record_date||'');
+  const category=String(r.amt_category||'').trim();
+  const value=number(r.mil_amt);
+  if(!/^\d{4}-\d\d-\d\d$/.test(date)||!Number.isFinite(value))continue;
+  if(!['Receipts','Outlays','Deficit/Surplus (-)'].includes(category))continue;
+  const k=date+'|'+category;
+  if(byMonth.has(k)&&Math.abs(byMonth.get(k)-value)>1)throw Error('Conflicting Treasury records for '+k);
+  byMonth.set(k,value);
+ }
+ const years=new Map();
+ for(const [k,value] of byMonth){
+  const [date,cat]=k.split('|');const fy=Number(date.slice(0,4))+(Number(date.slice(5,7))>=10?1:0);
+  if(fy<2015||fy>2026)continue;
+  if(!years.has(fy))years.set(fy,new Map());
+  if(!years.get(fy).has(date))years.get(fy).set(date,{});
+  years.get(fy).get(date)[cat]=value;
+ }
+ const result=[];
+ for(const [year,months] of years){
+  const dates=[...months.keys()].sort();let receipts=0,outlays=0,used=0,last='';
+  for(let i=0;i<12;i++){
+   const month=i<3?i+10:i-2,cal=i<3?year-1:year;
+   const prefix=cal+'-'+String(month).padStart(2,'0')+'-';
+   const date=dates.find(d=>d.startsWith(prefix));if(!date)break;
+   const row=months.get(date);
+   if(!Number.isFinite(row.Receipts)||!Number.isFinite(row.Outlays))break;
+   // Source deficit can differ slightly from receipts/outlays due to revisions.
+   // Do not manufacture a surplus from a mismatched or misclassified record.
+   const diff=row.Outlays-row.Receipts;
+   if(Number.isFinite(row['Deficit/Surplus (-)'])&&Math.abs(diff-row['Deficit/Surplus (-)'])>1000)
+    throw Error('Treasury monthly figures do not reconcile for '+date);
+   receipts+=row.Receipts*1e6;outlays+=row.Outlays*1e6;used++;last=date;
+  }
+  if(used>=1&&receipts>0&&outlays>0){
+   // Reject obviously impossible yearly magnitudes or anomalous surpluses.
+   if(outlays>1e13||receipts>1e13)throw Error('Budget totals outside validation bounds for FY '+year);
+   if(used===12&&year===2026&&(Math.abs(outlays-7.396e12)>2.5e11||Math.abs(receipts-5.403e12)>2.5e11))
+    throw Error('FY2026 does not match published budget totals; withholding suspect data');
+   result.push({year,date:last,receipts,outlays,partial:used<12});
+  }
+ }
+ return result.sort((a,b)=>a.year-b.year);
+}
+async function treasury(){
+ feed('treasury','loading','loading official monthly summary…');
+ try{
+  const base='https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_receipts_outlays_deficit_surplus';
+  const url=base+'?filter=record_date:gte:2014-10-01,record_date:lte:2026-09-30&sort=record_date&page[size]=10000';
+  let next=url,all=[],pages=0;
+  while(next&&pages<20){
+   const j=await getJSON(next);if(!Array.isArray(j.data))throw Error('Unexpected Treasury response format');
+   all.push(...j.data);pages++;
+   next=j.links&&j.links.next||null;
+   if(next&&next.startsWith('&'))next=base+'?'+next.slice(1);
+   else if(next&&next.startsWith('?'))next=base+next;
+   else if(next&&next.startsWith('/'))next='https://api.fiscaldata.treasury.gov'+next;
+  }
+  if(next)throw Error('Treasury pagination incomplete; refusing partial data');
+  const parsed=parseTreasury(all);
+  if(!parsed.length)throw Error('No reconciled monthly budget figures found');
+  state.treasury=parsed;
+  feed('treasury','good',parsed.length+' fiscal years · Treasury monthly receipts/outlays');renderBudget();drawChart();
+ }catch(e){state.treasury=[];feed('treasury','bad',errorText(e));renderBudget();drawChart()}
+}
+async function loadDebt(){
+ $('debtDate').textContent='Checking latest published debt figure…';
+ try{
+  const base='https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny';
+  const j=await getJSON(base+'?fields=record_date,tot_pub_debt_out_amt,debt_held_public_amt,intragov_hold_amt&sort=-record_date&page[size]=1');
+  const r=j.data&&j.data[0];if(!r)throw Error('No Treasury debt observations');
+  const total=number(r.tot_pub_debt_out_amt),pub=number(r.debt_held_public_amt),inside=number(r.intragov_hold_amt);
+  if(!Number.isFinite(total)||total<1e12||!Number.isFinite(pub)||!Number.isFinite(inside)||Math.abs(pub+inside-total)>1e8)throw Error('Treasury debt values failed validation');
+  state.debt={total,pub,inside,date:r.record_date};
+  $('nationalDebt').textContent=fmt(total);$('publicDebt').textContent=fmt(pub);$('internalDebt').textContent=fmt(inside);
+  $('debtPublicBar').style.width=(100*pub/total).toFixed(1)+'%';
+  $('debtDate').textContent='As of '+r.record_date+' · Published Treasury observation';
+ }catch(e){state.debt=null;$('nationalDebt').textContent='—';$('publicDebt').textContent='—';$('internalDebt').textContent='—';$('debtPublicBar').style.width='0%';$('debtDate').textContent='Debt feed unavailable: '+errorText(e)}
+}
+async function gdp(){feed('gdp','loading','loading…');try{const j=await getJSON('https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json&per_page=70');if(!Array.isArray(j)||!Array.isArray(j[1]))throw Error('Unexpected response format');const data={};j[1].forEach(r=>{const n=number(r.value);if(r.value!==null&&Number.isFinite(n)&&n>0)data[Number(r.date)]=n});if(!Object.keys(data).length)throw Error('No GDP observations');state.gdp=data;feed('gdp','good','latest calendar year '+Math.max(...Object.keys(data).map(Number)));renderBudget()}catch(e){state.gdp={};feed('gdp','bad',errorText(e));renderBudget()}}
+function renderBudget(){const fy=Number(years.value),r=state.treasury.find(x=>x.year===fy);$('outlays').textContent=r?fmt(r.outlays):'—';$('receipts').textContent=r?fmt(r.receipts):'—';$('balance').textContent=r?(r.receipts<r.outlays?fmt(r.outlays-r.receipts)+' deficit':r.receipts>r.outlays?fmt(r.receipts-r.outlays)+' surplus':'$0 balanced'):'—';$('balanceNote').textContent=r?(r.receipts<r.outlays?'Budget deficit':'Budget surplus')+(r.partial?' · preliminary through '+r.date:' · full fiscal year'):'No verified figures for FY '+fy;$('persec').textContent=r?fmt(r.outlays/(r.partial?Math.max(1,(Date.parse(r.date)-Date.parse((fy-1)+'-10-01'))/86400000+1)*86400:(new Date(Date.UTC(fy,9,1))-new Date(Date.UTC(fy-1,9,1)))/1000)):'—';$('budgetJoke').textContent=r?('In FY '+fy+', the federal government '+(r.outlays>r.receipts?'spent '+fmt(r.outlays-r.receipts)+' more than it collected':r.receipts>r.outlays?'collected '+fmt(r.receipts-r.outlays)+' more than it spent':'collected exactly as much as it spent')+'. '+(r.partial?'Preliminary through '+r.date+'.':'Full fiscal year · Treasury Monthly Treasury Statement.')):'Treasury budget data unavailable for this fiscal year.';const gy=Object.keys(state.gdp).map(Number).filter(y=>y<=fy).sort((a,b)=>b-a)[0],value=state.gdp[gy];$('gdpYear').textContent=value?gy:'—';$('gdp').textContent=value?fmt(value):'—';$('gdpShare').textContent=r&&value&&gy===fy&&!r.partial?(100*r.outlays/value).toFixed(1)+'%':'—';$('gdpJoke').textContent=!value?'GDP feed unavailable.':gy!==fy?'Latest GDP is calendar '+gy+'. No misleading FY'+fy+' comparison calculated.':r&&r.partial?'Spending is partial-year; GDP is annual. Apples, oranges, and very large receipts.':'GDP is economic output, not federal income. The deficit is spending minus federal receipts.';}
+function renderAwards(){const agency=$('agency').value,rows=agency?state.awards.filter(x=>x.code===agency):state.awards;state.awardTotal=state.awards.length?rows.reduce((s,r)=>s+r.amount,0):NaN;$('awards').textContent=fmt(state.awardTotal);$('million').textContent=Number.isFinite(state.awardTotal)?Math.round(state.awardTotal/1e6/365.25).toLocaleString():'—';$('awardJoke').textContent=Number.isFinite(state.awardTotal)?'Obligations, not actual cash paid. Even the receipt has fine print.':'Award totals unavailable.';const blocks=$('blocks');blocks.replaceChildren();const count=Number.isFinite(state.awardTotal)?Math.min(120,Math.floor(state.awardTotal/1e11)):0;for(let i=0;i<count;i++){const b=document.createElement('div');b.className='block';blocks.append(b)}$('brickNote').textContent=Number.isFinite(state.awardTotal)?count+' full blocks of $100B each. Partial blocks omitted.':'No verified award totals.';$('agencyCount').textContent=rows.length+' agencies';const list=$('agencyList');list.replaceChildren();const max=Math.max(1,...rows.map(x=>x.amount));for(const x of rows.slice(0,50)){const row=document.createElement('div');row.className='receiptrow';const a=document.createElement('span');a.textContent=x.name;const b=document.createElement('strong');b.textContent=fmt(x.amount);const track=document.createElement('div');track.className='track';const fill=document.createElement('div');fill.className='fill';fill.style.width=Math.max(0,x.amount/max*100)+'%';track.append(fill);row.append(a,b,track);list.append(row)}if(!rows.length)list.textContent='No agency data for this selection.';slider()}
+async function awards(){feed('awards','loading','loading FY '+years.value+'…');const fy=Number(years.value),type=$('type').value;const filters={time_period:[{start_date:(fy-1)+'-10-01',end_date:fy+'-09-30'}]};if(type==='contracts')filters.award_type_codes=['A','B','C','D'];if(type==='grants')filters.award_type_codes=['02','03','04','05'];const body={filters,category:'awarding_agency',limit:100,page:1,spending_level:'transactions'};const my=++state.request;try{const j=await getJSON('https://api.usaspending.gov/api/v2/search/spending_by_category/awarding_agency/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(my!==state.request)return;if(!Array.isArray(j.results))throw Error('Unexpected agency response');const parsed=j.results.map((r,i)=>({name:String(r.name||'Unknown agency'),code:String(r.code??r.id??i),amount:number(r.amount)})).filter(r=>Number.isFinite(r.amount)&&r.amount>=0).sort((a,b)=>b.amount-a.amount);if(!parsed.length)throw Error('No agency obligations returned');state.awards=parsed;const prior=$('agency').value,sel=$('agency');sel.replaceChildren(new Option('All agencies',''));parsed.forEach(r=>sel.add(new Option(r.name,r.code)));if(parsed.some(r=>r.code===prior))sel.value=prior;feed('awards','good',parsed.length+' agencies · FY '+fy);renderAwards()}catch(e){if(my!==state.request)return;state.awards=[];$('agency').replaceChildren(new Option('All agencies',''));feed('awards','bad',errorText(e));renderAwards()}}
+const rates=[1e3,1e4,1e5,1e6,1e7,1e8,1e9];function slider(){const rate=rates[Number($('daily').value)]||1e6;$('dailyLabel').textContent=fmt(rate);const years=state.awardTotal/rate/365.25;$('yearsToSpend').textContent=Number.isFinite(years)?years.toLocaleString('en-US',{maximumFractionDigits:1})+' years':'—';$('sliderJoke').textContent=!Number.isFinite(years)?'Load agency obligations to use the simulator.':years>1000?'Your descendants will need to take over the credit card.':years>50?'Consider a calendar with several centuries.':'Your imaginary spending department is operating at full capacity.'}
+function drawChart(){
+ const c=$('history'),ctx=c.getContext('2d'),rect=c.getBoundingClientRect(),w=Math.max(310,rect.width),h=Math.max(290,rect.height),dpr=Math.min(2,window.devicePixelRatio||1);
+ c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const all=state.treasury||[],range=$('chartRange').value,rows=range==='all'?all:all.slice(-Number(range));
+ if(!rows.length){ctx.fillStyle='#c1d6e6';ctx.font='14px system-ui';ctx.fillText('Treasury history unavailable. Check source status.',15,h/2);c._points=[];$('chartSummary').textContent='No verified Treasury observations to chart.';return}
+ const L=61,R=w-17,T=39,B=h-48,bar=$('chartStyle').value==='bar',budget=state.mode==='budget';
+ const vals=rows.flatMap(r=>budget?[r.outlays/1e12,r.receipts/1e12]:[(r.receipts-r.outlays)/1e12]);
+ const min=budget?0:Math.min(0,...vals)*1.18;let max=Math.max(0,...vals)*1.14;if(max===min)max=min+1;
+ const xp=i=>L+(R-L)*(i+.5)/rows.length,yp=v=>B-(v-min)/(max-min)*(B-T);
+ ctx.font='11px system-ui';ctx.lineWidth=1;
+ for(let k=0;k<=5;k++){const v=min+(max-min)*k/5,y=yp(v);ctx.strokeStyle='#314b61';ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(R,y);ctx.stroke();ctx.fillStyle='#a9c6d8';ctx.fillText((v<0?'−':'')+'$'+Math.abs(v).toFixed(1)+'T',3,y+4)}
+ rows.forEach((r,i)=>{if(rows.length<=8||i%Math.ceil(rows.length/7)===0||i===rows.length-1){ctx.fillStyle='#c1d8e7';ctx.fillText(String(r.year),xp(i)-13,h-18)}});
+ if(!budget){ctx.strokeStyle='#829bad';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(L,yp(0));ctx.lineTo(R,yp(0));ctx.stroke();ctx.setLineDash([])}
+ const series=budget?[{key:'outlays',color:'#f2c16b',label:'Spending'},{key:'receipts',color:'#61d9b2',label:'Revenue'}]:[{key:'balance',color:'#fb8f9a',label:'Budget balance'}];
+ c._points=[];
+ series.forEach((ss,si)=>{const value=r=>(ss.key==='balance'?r.receipts-r.outlays:r[ss.key])/1e12;
+  if(bar){rows.forEach((r,i)=>{const v=value(r),bw=Math.max(3,Math.min(24,(R-L)/rows.length/(series.length+.5))),x=xp(i)+(si-(series.length-1)/2)*bw;ctx.fillStyle=ss.color;ctx.fillRect(x-bw*.44,Math.min(yp(v),yp(0)),bw*.88,Math.max(2,Math.abs(yp(v)-yp(0))));c._points.push({x,y:yp(v),year:r.year,record:r,text:'FY '+r.year+' · '+ss.label+': '+fmt(v*1e12)+(r.partial?' (partial)':'')})})}
+  else{ctx.strokeStyle=ss.color;ctx.lineWidth=3;ctx.beginPath();rows.forEach((r,i)=>{const x=xp(i),y=yp(value(r));i?ctx.lineTo(x,y):ctx.moveTo(x,y);c._points.push({x,y,year:r.year,record:r,text:'FY '+r.year+' · '+ss.label+': '+fmt(value(r)*1e12)+(r.partial?' (partial)':'')})});ctx.stroke();ctx.fillStyle=ss.color;rows.forEach((r,i)=>{ctx.beginPath();ctx.arc(xp(i),yp(value(r)),3.8,0,Math.PI*2);ctx.fill()})}
+ });
+ // Highlight selected fiscal year with a vertical crosshair and a distinct marker.
+ const chosen=rows.findIndex(r=>r.year===state.selectedChartYear);if(chosen>=0){const x=xp(chosen);ctx.strokeStyle='#d6e7f0';ctx.setLineDash([3,5]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,T);ctx.lineTo(x,B);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e9f3fa';ctx.beginPath();ctx.arc(x,T-12,4,0,Math.PI*2);ctx.fill()}
+ ctx.font='12px system-ui';series.forEach((ss,i)=>{ctx.fillStyle=ss.color;ctx.fillText('● '+ss.label,L+i*135,17)});
+ const latest=rows[rows.length-1],first=rows[0],delta=(latest.outlays/first.outlays-1)*100;
+ $('chartSummary').textContent='FY '+first.year+'–'+latest.year+(rows.length>1?' · Spending changed '+(delta>=0?'+':'')+delta.toFixed(1)+'% (nominal dollars). ':' · One year of data available. ')+(latest.partial?'Latest year is partial. ':'')+'Tap a year for the exact figures.';
+}
+function chartInspect(e){const r=e.currentTarget.getBoundingClientRect(),x=e.clientX-r.left;let near=null,d=Infinity;for(const p of e.currentTarget._points||[]){const n=Math.abs(p.x-x);if(n<d){d=n;near=p}}if(near){state.selectedChartYear=near.year;const row=near.record;$('chartTip').textContent='FY '+row.year+' · Spending '+fmt(row.outlays)+' · Revenue '+fmt(row.receipts)+' · '+(row.receipts>=row.outlays?'Surplus ':'Deficit ')+fmt(Math.abs(row.receipts-row.outlays))+(row.partial?' · Partial year':'');drawChart()}}
+$('history').addEventListener('pointerdown',chartInspect);
+$('history').addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&e.buttons)chartInspect(e)});
+$('chartRange').addEventListener('change',drawChart);$('chartStyle').addEventListener('change',drawChart);
+function setMode(m){state.mode=m;$('modeBudget').classList.toggle('active',m==='budget');$('modeBalance').classList.toggle('active',m==='balance');drawChart();$('chartTip').textContent=m==='budget'?'Tap a chart point to inspect receipts or outlays.':'Tap a chart point to inspect the budget balance.'}
+$('modeBudget').addEventListener('click',()=>setMode('budget'));$('modeBalance').addEventListener('click',()=>setMode('balance'));$('agency').addEventListener('change',renderAwards);$('daily').addEventListener('input',slider);let jokeIndex=-1;$('surprise').addEventListener('click',()=>{
+ let next=(jokeIndex+1)%jokes.length;jokeIndex=next;
+ const panel=$('jokePanel');panel.textContent=jokes[next];panel.classList.remove('pulse');void panel.offsetWidth;panel.classList.add('pulse');
+ $('surprise').textContent='Next joke ('+(next+1)+'/'+jokes.length+')';
+});$('type').addEventListener('change',awards);years.addEventListener('change',()=>{renderBudget();drawChart();awards()});$('load').addEventListener('click',refresh);window.addEventListener('resize',drawChart);
+async function refresh(){$('load').disabled=true;await Promise.allSettled([treasury(),gdp(),awards(),loadDebt()]);$('load').disabled=false}renderBudget();renderAwards();setMode('budget');refresh();})();</script></body></html>
