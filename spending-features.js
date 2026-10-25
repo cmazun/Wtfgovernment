@@ -78,61 +78,58 @@
     if (event.key === 'Enter') searchContracts();
   });
   let annual = [];
-  let factPage = 0;
-  function showFacts() {
-    const host = byId('spFacts');
-    host.replaceChildren();
-    const rows = annual.filter((row) => Number.isFinite(Number(row.outlays)) &&
-      Number(row.outlays) > 0 && !row.partial)
-      .sort((a, b) => Number(b.year) - Number(a.year));
-    if (!rows.length) {
-      host.append(element('p', 'small', 'Waiting for published Treasury figures.'));
-      return;
-    }
-    const latest = rows[0];
-    const outlays = Number(latest.outlays);
-    const receipts = Number(latest.receipts);
-    const year = latest.year;
-    const facts = [
-      ['Spending per day', money(outlays / 365.25),
-        'FY ' + year + ' federal outlays, averaged over a year.'],
-      ['Spending per second', money(outlays / 31557600),
-        'FY ' + year + ' federal outlays, averaged over a year.']
+  let factIndex = 0;
+  let factItems = [];
+  function buildFacts() {
+    const rows = annual.filter(r => !r.partial && Number(r.outlays) > 0)
+      .sort((a,b) => Number(b.year)-Number(a.year));
+    if (!rows.length) return [];
+    const r=rows[0],spent=Number(r.outlays),collected=Number(r.receipts),year=r.year;
+    const seconds=365.25*86400;
+    const list=[
+      {category:'While you sleep',title:'Eight hours of federal spending',value:money(spent/seconds*8*3600),detail:'An eight-hour illustration at FY '+year+' average outlays. Not a live reading.'},
+      {category:'In one minute',title:'The 60-second receipt',value:money(spent/seconds*60),detail:'One minute at FY '+year+' average spending.'},
+      {category:'In one hour',title:'One hour on the federal clock',value:money(spent/seconds*3600),detail:'One hour at FY '+year+' average spending.'},
+      {category:'A single day',title:'24 hours of federal outlays',value:money(spent/365.25),detail:'Average daily spending during FY '+year+'.'},
+      {category:'Put it in perspective',title:'Days to spend $1 trillion',value:(1e12/(spent/365.25)).toFixed(1)+' days',detail:'At FY '+year+' average federal outlays.'}
     ];
-    if (receipts > 0) {
-      facts.push(['Spent per $1 collected', '$' + (outlays / receipts).toFixed(2),
-        'FY ' + year + ' Treasury outlays divided by federal receipts.']);
-      if (outlays > receipts) {
-        facts.push(['Average daily deficit', money((outlays - receipts) / 365.25),
-          'FY ' + year + ' federal deficit averaged over a year.']);
-        facts.push(['Spending not covered by receipts',
-          ((outlays - receipts) / outlays * 100).toFixed(1) + '%',
-          'FY ' + year + ' deficit as a share of outlays.']);
-      }
+    if(collected>0){
+      list.push({category:'Revenue vs. spending',title:'Spent for every $1 collected',value:'$'+(spent/collected).toFixed(2),detail:'FY '+year+' outlays divided by receipts.'});
+      if(spent>collected)list.push({category:'The gap',title:'Daily spending beyond receipts',value:money((spent-collected)/365.25),detail:'Average daily FY '+year+' deficit, not daily borrowing transactions.'});
     }
-    if (rows.length > 1 && Number(rows[rows.length - 1].outlays) > 0) {
-      const earliest = rows[rows.length - 1];
-      facts.push(['Growth since FY ' + earliest.year,
-        ((outlays / Number(earliest.outlays) - 1) * 100).toFixed(1) + '%',
-        'Change in nominal annual federal outlays through FY ' + year + '.']);
+    if(rows.length>1){
+      const first=rows[rows.length-1];
+      if(Number(first.outlays)>0)list.push({category:'Then vs. now',title:'Spending growth since FY '+first.year,value:((spent/Number(first.outlays)-1)*100).toFixed(1)+'%',detail:'Nominal outlays; not adjusted for inflation.'});
     }
-    for (let i = 0; i < Math.min(4, facts.length); i++) {
-      const fact = facts[(factPage * 4 + i) % facts.length];
-      const card = element('article', 'sp-fact', '');
-      card.append(
-        element('strong', '', fact[0]),
-        element('b', '', fact[1]),
-        element('p', '', fact[2])
-      );
-      host.append(card);
-    }
+    return list;
   }
-  window.addEventListener('treasury-annual-data', (event) => {
-    annual = Array.isArray(event.detail) ? event.detail : [];
-    showFacts();
+  function showFacts(){
+    const host=byId('spFacts'),counter=byId('spFactCounter'),prev=byId('spPrevFacts'),next=byId('spMoreFacts');
+    host.replaceChildren();
+    factItems=buildFacts();
+    if(!factItems.length){host.append(element('p','small','Waiting for published Treasury figures.'));if(counter)counter.textContent='';return}
+    factIndex=((factIndex%factItems.length)+factItems.length)%factItems.length;
+    const fact=factItems[factIndex];
+    const card=element('article','sp-fact sp-fact-feature','');
+    card.append(element('span','sp-fact-eyebrow',fact.category),element('strong','',fact.title),element('b','',fact.value),element('p','',fact.detail));
+    const bar=element('div','sp-fact-progress','');
+    for(let i=0;i<factItems.length;i++){
+      const dot=element('span',i===factIndex?'is-current':'','');
+      bar.append(dot);
+    }
+    card.append(bar);host.append(card);
+    if(counter)counter.textContent=(factIndex+1)+' of '+factItems.length;
+    if(prev)prev.disabled=factItems.length<2;
+    if(next)next.disabled=factItems.length<2;
+  }
+  window.addEventListener('treasury-annual-data',event=>{
+    annual=Array.isArray(event.detail)?event.detail:[];
+    factIndex=0;showFacts();
   });
-  byId('spMoreFacts').addEventListener('click', () => {
-    factPage++;
-    showFacts();
-  });
+  byId('spMoreFacts').addEventListener('click',()=>{factIndex++;showFacts()});
+  const previous=byId('spPrevFacts');
+  if(previous)previous.addEventListener('click',()=>{factIndex--;showFacts()});
+  const random=byId('spRandomFact');
+  if(random)random.addEventListener('click',()=>{if(factItems.length>1){const offset=1+Math.floor(Math.random()*(factItems.length-1));factIndex+=offset;showFacts()}});
+
 })();
