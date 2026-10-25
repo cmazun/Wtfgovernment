@@ -17,48 +17,32 @@ function addField(box,label,value){
 function addHeading(box,title){box.append(text('h4','award-deep-heading',title));}
 function render(box,data,transactions,id){
  box.replaceChildren();
- const c=data.latest_transaction_contract_data||{};
- const recipient=data.recipient||{};
- const awarding=data.awarding_agency||{};
- const funding=data.funding_agency||{};
- const period=data.period_of_performance||{};
- const description=first(data,['description','award_description','latest_transaction_contract_data.transaction_description','latest_transaction_contract_data.description','latest_transaction_contract_data.product_or_service_code_description']);
- addHeading(box,'What the government purchased');
+ const c=data.latest_transaction_contract_data||{}, period=data.period_of_performance||{};
  const desc=first(data,['description','award_description','latest_transaction_contract_data.transaction_description','latest_transaction_contract_data.description']);
- const psc=first(c,['product_or_service_code_description','product_or_service_code','psc_description','psc']);
- if(desc&&!looksLikeCode(desc))addField(box,'Official contract description',desc);
- else addField(box,'Description quality', 'The official description is missing or is a reporting code, not a plain-English explanation. The categories below may offer additional context.');
- addField(box,'Product or service',psc);
- addField(box,'Industry classification',first(c,['naics_description','naics','naics_code']));
- addHeading(box,'Contract value and funding');
- addField(box,'Federal obligations reported for this award',money(first(data,['total_obligation','total_obligated_amount','total_obligations'])));
- addField(box,'Potential total award value',money(first(data,['total_potential_value_of_award','total_potential_value','base_and_all_options_value','total_contract_value'])));
- addField(box,'Reported outlays (payments)',money(first(data,['total_outlays','total_outlay'])));
- addField(box,'Contract pricing / type',first(c,['type_of_contract_pricing_description','type_of_contract_pricing','contract_award_type_description','contract_award_type']));
- addHeading(box,'Dates and government customer');
- addField(box,'Award date',date(first(data,['date_signed','award_date','base_obligation_date'])));
- addField(box,'Performance start',date(first(period,['start_date','start'])));
- addField(box,'Current performance end',date(first(period,['current_end_date','end_date'])));
- addField(box,'Potential end with options',date(first(period,['potential_end_date'])));
- addField(box,'Awarding agency',first(awarding,['toptier_agency.name','subtier_agency.name','office_agency_name'])||first(data,['awarding_agency_name']));
- addField(box,'Awarding office',first(awarding,['office_agency_name','office_agency_code']));
- addField(box,'Funding agency',first(funding,['toptier_agency.name','subtier_agency.name','office_agency_name']));
- addField(box,'Recipient',first(recipient,['recipient_name','name']));
- addField(box,'Recipient UEI',first(recipient,['recipient_uei','uei']));
- if(transactions&&transactions.length){
- addHeading(box,'Recent contract actions and modifications');
- for(const t of transactions.slice(0,5)){
-  const row=text('div','award-deep-action','');
-  const label=[date(t.action_date),t.modification_number?'Mod '+t.modification_number:null,t.action_type_description].filter(Boolean).join(' · ');
-  row.append(text('strong','',label||'Contract action'));
-  if(t.federal_action_obligation!==null&&t.federal_action_obligation!==undefined)row.append(text('p','','Obligation change: '+(money(t.federal_action_obligation)||'Not reported')));
-  if(t.description&&!looksLikeCode(t.description))row.append(text('p','',String(t.description).slice(0,400)));
-  box.append(row);
- }
- }
- const note=text('p','award-deep-note','Figures describe different measures and may cover multiple fiscal years. Obligations are commitments, potential value may include unexercised options, and outlays are payments. Missing fields are omitted rather than estimated.');
+ const psc=first(c,['product_or_service_code_description','psc_description','product_or_service_code','psc']);
+ const naics=first(c,['naics_description','naics','naics_code']);
+ const obligation=first(data,['total_obligation','total_obligated_amount','total_obligations']);
+ const potential=first(data,['total_potential_value_of_award','total_potential_value','base_and_all_options_value','total_contract_value']);
+ const outlays=first(data,['total_outlays','total_outlay']);
+ const intro=text('p','award-deep-intro','Official federal contract details');
+ box.append(intro);
+ if(desc&&!looksLikeCode(desc))addField(box,'Purpose',desc);
+ else if(psc||naics)addField(box,'What it covers',String(psc||'')+(naics&&naics!==psc?' · '+naics:''));
+ else addField(box,'Purpose','The federal record does not provide a useful description.');
+ if(psc&&desc&&!looksLikeCode(desc))addField(box,'Service category',psc);
+ if(naics&&(!psc||!desc||looksLikeCode(desc)))addField(box,'Industry',naics);
+ addField(box,'Obligated',money(obligation));
+ if(potential!==null&&Number(potential)>0)addField(box,'Potential contract value',money(potential));
+ if(outlays!==null&&Number(outlays)>0)addField(box,'Payments reported',money(outlays));
+ const signed=date(first(data,['date_signed','award_date','base_obligation_date']));
+ const ends=date(first(period,['current_end_date','end_date','potential_end_date']));
+ if(signed||ends)addField(box,'Contract dates',[signed?'Awarded '+signed:null,ends?'Ends '+ends:null].filter(Boolean).join(' · '));
+ addField(box,'Contract type',first(c,['type_of_contract_pricing_description','contract_award_type_description','type_of_contract_pricing','contract_award_type']));
+ const office=first(data,['awarding_agency.office_agency_name','awarding_agency.subtier_agency.name','awarding_agency.toptier_agency.name','awarding_agency_name']);
+ addField(box,'Government customer',office);
+ const note=text('p','award-deep-note','Obligated means funding committed, not necessarily paid. A missing or zero potential value does not mean the contract is worth $0.');
  box.append(note);
- const link=document.createElement('a');link.href='https://www.usaspending.gov/award/'+encodeURIComponent(id);link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open this specific award on USAspending ↗';box.append(link);
+ const link=document.createElement('a');link.href='https://www.usaspending.gov/award/'+encodeURIComponent(id);link.target='_blank';link.rel='noopener noreferrer';link.textContent='View full official award record ↗';box.append(link);
 }
 async function get(url,options){
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),22000);
